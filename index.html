@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="شخصية القرار">
+<meta name="theme-color" content="#5a22b5">
+<title>أي شخصية قرار أنتِ؟</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@600;800&family=Tajawal:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+<style>
+:root{
+  --bg:#f5effd; --surface:#ffffff; --ink:#2a1a4a; --muted:#66578a;
+  --purple:#6427c4; --purple-deep:#5a22b5; --purple-soft:#eadffb; --line:#d8c8f4;
+  --yellow:#ffd23f; --yellow-soft:#fff4c7; --on-yellow:#33250a;
+  --display:"Baloo Bhaijaan 2","Tajawal","Geeza Pro","Segoe UI",Tahoma,sans-serif;
+  --body:"Tajawal","Geeza Pro","Segoe UI",Tahoma,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:#f5effd}
+html,body{margin:0;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(17px,2.4vw,20px);line-height:1.7;touch-action:manipulation;
+  -webkit-overflow-scrolling:touch;
+  padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(28px + env(safe-area-inset-bottom,0px))}
+button,.opt,.btn,.hero,.qnum,.dots{-webkit-user-select:none;user-select:none}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--display);line-height:1.3;margin:0}
+p{margin:0}
+/* الصفحة تتمرر طبيعيًا في كل المتصفحات؛ المحتوى يبدأ من الأعلى ولا يُحبس داخل ارتفاع ثابت */
+.screen{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+@media (min-height:760px) and (min-width:700px){ .screen{padding-top:4vh} }
+
+.hero{background:var(--purple-deep);color:#fff;border-radius:32px 32px 32px 8px;padding:36px 28px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:-45px;top:-45px;width:160px;height:160px;border-radius:50%;background:var(--yellow)}
+.hero>*{position:relative;z-index:1}
+.hero h1{font-size:clamp(2.2rem,8vw,3.6rem);font-weight:800;max-width:10em}
+.hero h1 span{color:var(--yellow)}
+.tag{align-self:flex-start;background:var(--yellow);color:var(--on-yellow);font-weight:700;font-size:.9rem;padding:2px 14px;border-radius:99px}
+
+.card{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:14px}
+label.field{font-weight:700;font-size:1.15rem}
+input[type=text]{font:inherit;font-size:1.3rem;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:14px 18px;width:100%;-webkit-user-select:text;user-select:text}
+input[type=text]:focus{outline:4px solid var(--yellow);border-color:var(--purple)}
+
+.btn{font:inherit;font-family:var(--display);font-weight:800;font-size:1.5rem;background:var(--yellow);color:var(--on-yellow);border:0;border-radius:99px;padding:14px 40px;cursor:pointer;align-self:center}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--purple);border:2px solid var(--purple);font-size:1.05rem;padding:8px 24px}
+
+.top{display:flex;align-items:center;gap:14px}
+.dots{flex:1;display:flex;gap:6px}
+.dots i{flex:1;height:12px;border-radius:99px;background:var(--purple-soft)}
+.dots i.on{background:var(--yellow)}
+.dots i.now{background:var(--purple)}
+.qnum{font-family:var(--display);color:var(--purple);font-weight:800}
+.qtext{font-size:clamp(1.5rem,5vw,2.1rem);font-weight:800}
+.opts{display:flex;flex-direction:column;gap:12px}
+.opt{font:inherit;font-size:1.2rem;font-weight:500;text-align:right;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:18px 22px;cursor:pointer;width:100%}
+.opt.picked{background:var(--purple);border-color:var(--purple);color:#fff;font-weight:700}
+
+.result{background:var(--yellow-soft);border-color:var(--yellow);border-width:3px}
+.emoji{font-size:4rem;line-height:1}
+.result h2{font-size:clamp(1.8rem,6vw,2.6rem);font-weight:800}
+.result h3{font-size:1.25rem;font-weight:800;color:var(--purple)}
+.persona{display:flex;flex-direction:column;gap:6px}
+.persona + .persona{border-top:2px dashed var(--line);padding-top:14px}
+.closing{font-family:var(--display);font-weight:800;font-size:1.35rem;text-align:center;color:var(--purple)}
+.note{color:var(--muted);font-size:.9rem;text-align:center}
+</style>
+</head>
+<body>
+
+<section class="screen" id="s-start">
+  <header class="hero">
+    <span class="tag">للمرح والتأمل</span>
+    <h1>أي شخصية <span>قرار</span> أنتِ؟</h1>
+    <p>٨ مواقف سريعة. اختاري أقرب تصرف لك بصدق، ونعرّفك على شخصيتك في اتخاذ القرار.</p>
+  </header>
+  <div class="card">
+    <label class="field" for="student-name">وش اسمك؟</label>
+    <input type="text" id="student-name" autocomplete="off" autocapitalize="off" enterkeyhint="go" placeholder="اكتبي اسمك هنا">
+  </div>
+  <button type="button" class="btn" id="start">يلا نبدأ</button>
+  <p class="note">الاختبار للمرح والتأمل وليس تقييمًا نفسيًا.</p>
+</section>
+
+<section class="screen" id="s-quiz" hidden>
+  <div class="top">
+    <button type="button" class="btn ghost" id="back">رجوع</button>
+    <div class="dots" id="dots"></div>
+  </div>
+  <p class="qnum" id="qnum"></p>
+  <h2 class="qtext" id="qtext"></h2>
+  <div class="opts" id="opts"></div>
+</section>
+
+<section class="screen" id="s-result" hidden>
+  <div class="card result" id="result-main"></div>
+  <p class="closing">ما فيه شخصية غلط، وكل واحدة لها نقطة قوة 💜</p>
+  <button type="button" class="btn" id="again">الطالبة التالية</button>
+</section>
+
+<script>
+(function(){
+  var AR=['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  function ar(n){return String(n).replace(/\d/g,function(d){return AR[d];});}
+
+  // ترتيب الخيارات في كل سؤال: 1 = الموجة، 2 = المستمعة، 3 = المحللة، 4 = القائدة
+  var Q=[
+    ['صديقاتك كلهن يغيّرن رأيهن في موضوع، ورأيك مختلف.',['أغير رأيي معهن','أسمع حججهن كلها أول','أحسب النتائج وأقارن','أثبت على رأيي وأشرح لهن']],
+    ['أهلك نصحوك بنصيحة ما تتوافق مع رغبتك.',['أسوي اللي يرضيهم','أسمع أسبابهم بتمعن','أكتب إيجابيات وسلبيات','أقرر لحالي بعد ما أسمعهم']],
+    ['ترند جديد والكل يقلده.',['أقلده عشان أنسجم','أشوف رأي كل واحدة فيه','أدرس إذا يناسبني','أقرر إذا أبغاه أو لا بسرعة']],
+    ['أحد انتقدك قدام الناس.',['أنزعج وأغير اختياري','أسمع وأتأمل في كلامه','أفكر هل النقد فيه فايدة','أتجاهله وأكمل طريقي']],
+    ['مطلوب منك قرار بسرعة.',['أمشي مع الأغلبية','أسأل كل اللي حولي','أطلب وقتًا عشان أفكر','أقرر وأتحمل النتيجة']],
+    ['صديقتك تبغى منك شيئًا ما يريحك.',['أوافق عشان ما أخسرها','أسمعها وأحاول أفهم','أفكر بعواقب الموافقة','أرفض بلطف ووضوح']],
+    ['رأيان متعاكسان من شخصين تحبينهم.',['أختار رأي الأقرب لي','أسمع الاثنين مرة ثانية','أحلل كل رأي بهدوء','أختار اللي أحس إنه الصح لي']],
+    ['تجربين شيئًا جديدًا والكل يحذرك.',['أترك الفكرة','أسمع تحذيراتهم كلها','أدرس المخاطر أول','أجرب بحذر بعد قراري']]
+  ];
+  var P=[
+    {e:'🌊',n:'الموجة',d:'تحسين بالناس حولك بسرعة وتنسجمين معهم بسهولة، وأحيانًا يتغير رأيك مع أقرب صوت.',s:'اجتماعية ودودة تفهمين مزاج الناس.',t:'قبل ما تغيرين رأيك اسألي: هذا اللي أنا أبغاه ولا اللي يبغونه؟'},
+    {e:'👂',n:'المستمعة',d:'تسمعين الكل وتقدرين رأيهم، وتحتارين أحيانًا لأن الأصوات كثيرة.',s:'متفهمة هادئة وتحترمين اختلاف الآراء.',t:'بعد ما تسمعين حددي وقتًا للقرار.'},
+    {e:'🔍',n:'المحللة',d:'تفكرين بالنتائج وتقارنين الخيارات، وقد تتأخرين لأنك تبغين الخيار الكامل.',s:'عميقة التفكير وقراراتك مدروسة.',t:'القرارات الصغيرة قرريها بسرعة.'},
+    {e:'🧭',n:'القائدة',d:'تعرفين وش تبغين وتقررين بثقة، وأحيانًا تحتاجين رأيًا ثانيًا.',s:'واضحة واثقة وتتحملين مسؤولية اختيارك.',t:'خلي مجال صغير لسماع رأي مخالف.'}
+  ];
+
+  var $=function(id){return document.getElementById(id);};
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;}
+  var screens=['s-start','s-quiz','s-result'];
+  var cur=0, ans=[], busy=false, idle=null;
+  var IDLE_MS=90000; // ترجع للبداية تلقائيًا بعد دقيقة ونصف بدون لمس
+
+  function show(id){
+    screens.forEach(function(s){$(s).hidden=(s!==id);});
+    window.scrollTo(0,0);
+  }
+  function armIdle(){
+    clearTimeout(idle);
+    if(!$('s-start').hidden) return;
+    idle=setTimeout(reset,IDLE_MS);
+  }
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){document.addEventListener(ev,armIdle,{passive:true});});
+
+  function reset(){
+    clearTimeout(idle);
+    cur=0; ans=[]; busy=false;
+    $('student-name').value='';
+    show('s-start');
+  }
+
+  function renderQ(){
+    var dots=$('dots'); dots.textContent='';
+    Q.forEach(function(_,i){dots.appendChild(el('i',i<cur?'on':(i===cur?'now':'')));});
+    $('qnum').textContent='الموقف '+ar(cur+1)+' من '+ar(Q.length);
+    $('qtext').textContent=Q[cur][0];
+    var opts=$('opts'); opts.textContent='';
+    Q[cur][1].forEach(function(text,oi){
+      var b=el('button','opt'+(ans[cur]===oi?' picked':''),text);
+      b.type='button';
+      b.addEventListener('click',function(){pick(oi,b);});
+      opts.appendChild(b);
+    });
+  }
+  function pick(oi,btn){
+    if(busy) return;
+    busy=true; ans[cur]=oi;
+    Array.prototype.forEach.call($('opts').children,function(c){c.classList.remove('picked');});
+    btn.classList.add('picked');
+    setTimeout(function(){
+      busy=false;
+      if(cur<Q.length-1){cur++;renderQ();window.scrollTo(0,0);}
+      else showResult();
+    },280);
+  }
+
+  function persona(p,withTitle){
+    var d=el('div','persona');
+    if(withTitle) d.appendChild(el('h3','',p.e+' '+p.n));
+    d.appendChild(el('p','',p.d));
+    var s=el('p');s.appendChild(el('b','','نقطة قوتك: '));s.appendChild(document.createTextNode(p.s));d.appendChild(s);
+    var t=el('p');t.appendChild(el('b','','نصيحة: '));t.appendChild(document.createTextNode(p.t));d.appendChild(t);
+    return d;
+  }
+  function showResult(){
+    var counts=[0,0,0,0];
+    ans.forEach(function(v){counts[v]++;});
+    var max=Math.max.apply(null,counts), win=[];
+    counts.forEach(function(c,i){if(c===max)win.push(i);});
+    var name=$('student-name').value.trim();
+    var m=$('result-main'); m.textContent='';
+    m.appendChild(el('div','emoji',win.map(function(i){return P[i].e;}).join(' ')));
+    m.appendChild(el('h2','',(name?'يا '+name+'، ':'')+(win.length===1?'أنتِ '+P[win[0]].n:'أنتِ مزيج بين '+win.map(function(i){return P[i].n;}).join(' و'))));
+    win.forEach(function(i){m.appendChild(persona(P[i],win.length>1));});
+    show('s-result');
+  }
+
+  function start(){
+    $('student-name').blur();
+    cur=0; ans=[];
+    renderQ(); show('s-quiz'); armIdle();
+  }
+  $('start').addEventListener('click',start);
+  $('student-name').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();start();}});
+  $('back').addEventListener('click',function(){
+    if(busy) return;
+    if(cur===0) show('s-start'); else {cur--;renderQ();}
+  });
+  $('again').addEventListener('click',reset);
+})();
+</script>
+</body>
+</html>
